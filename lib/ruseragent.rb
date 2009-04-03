@@ -28,12 +28,17 @@ module Ruseragent
     def autotags(u)
       tags = []
       {
-        :ie => /MSIE/,
-        :googlebot => /Googlebot/,
-        :linux => /Linux/,
-        :safari => /Safari/,
-        :windows => /Windows/,
-      }.each { |t,r| tags.push(t) if u.match(r) }
+        /Googlebot/ => [:spider, :googlebot],
+        /Linux/ => :linux,
+        /libwww-perl/ => [:perl, :script],
+        /MSIE/ => :ie,
+        /MSIE 6\.0/ => :ie6,
+        /Python-urllib/ => [:python, :script]
+        /Safari/ => :safari,
+        /SunOS/ => :sunos,
+        /Windows/ => :windows,
+        /X11/ => :x11,
+      }.each { |r,t| tags.push(*t) if u.match(r) }
       tags
     end
 
